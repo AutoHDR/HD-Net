@@ -1,5 +1,5 @@
 import numpy as np
-import cv2, glob, os
+import cv2, glob
 from imutils import face_utils
 import dlib
     
