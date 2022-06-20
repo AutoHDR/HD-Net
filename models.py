@@ -289,11 +289,7 @@ class HD_Net(nn.Module):
         dfs_freeze(self.out_shading)
         dfs_freeze(self.normal_gen_model)
 
-        # Note that we are not freezing Albedo gen model
-
-
-
-
+# Note that we are not freezing Albedo gen model
 
 class All_SharedEncoder(nn.Module):
     """Custom U-Net architecture for Noise2Noise (see Appendix, Table 2)."""
@@ -342,7 +338,6 @@ class All_SharedEncoder(nn.Module):
         pool4 = self._block2(pool3)
         pool5 = self._block2(pool4)
         return pool1, pool2, pool3, pool4, pool5 
-
 
 class DecoderShading(nn.Module):
     def __init__(self, in_channels=3, out_channels=3):
@@ -574,7 +569,6 @@ class DecoderNormal(nn.Module):
         upsample1 = self._block10(concat2)
         concat1 = torch.cat((upsample1, x), dim=1)
         return self._block11(concat1)# , pool5
-
 
 class HD_Half_SharedEncoder(nn.Module):
     def __init__(self, d=64):
