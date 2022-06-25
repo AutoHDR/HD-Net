@@ -7,7 +7,7 @@ from models import *
 
 def main():
     parser = argparse.ArgumentParser(description='HD-Net')
-    parser.add_argument('--batch_size', type=int, default=6, metavar='N',
+    parser.add_argument('--batch_size', type=int, default=10, metavar='N',
                         help='input batch size for training (default: 8)')
     parser.add_argument('--epochs', type=int, default=20, metavar='N',
                         help='number of epochs to pre_train (default: 20)')

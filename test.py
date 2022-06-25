@@ -62,6 +62,9 @@ def TestImg(HD_Model, data_path, step_flag, device, batch_size = 8, num_epochs =
 
             s_immg2 = torch.cat([face_2*mask, rec_F_2*mask, rec_S_2*pA_2*mask, pA_2*mask, albedo*mask, pS_2*mask, rec_S_2*mask, get_shading_DPR_B(Spnormal, pL_2, VisLight=True).expand([b, 3, w,h]), get_normal_in_range(normal_DPR2SFS(pN_2))*mask], dim=0)
             save_image(s_immg2, file_name + '_img2.png', nrow=b, normalize=False)
+
+            s_immg3 = torch.cat([face_2*mask, pA_2*mask, pS_2*mask, get_shading_DPR_B(Spnormal, pL_2, VisLight=True).expand([b, 3, w,h]), get_normal_in_range(normal_DPR2SFS(pN_2))*mask], dim=0)
+            save_image(s_immg3, file_name + '_img3.png', nrow=b, normalize=False)
             print()
 
 
