@@ -1,6 +1,6 @@
 # HD-Net
 
-<center><img src="data/results/_img1.png " width="10%"></center>
+<center><img src="data/results/_img3.png " width="50%"></center>
 * From top to bottom are the input face, AS reconstruction, ANL reconstruction, gt albedo, predicted albedo, predicted shading, NL shading, visualized light and predicted normal.
 
 ## Training
