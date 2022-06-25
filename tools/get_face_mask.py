@@ -2,7 +2,8 @@ import numpy as np
 import cv2, glob
 from imutils import face_utils
 import dlib
-    
+
+#dlib
 predictor = dlib.shape_predictor('/home/toughlife/WM/myCode/HD-Net/tools/shape_predictor_68_face_landmarks.dat')
 detector = dlib.get_frontal_face_detector()
 
