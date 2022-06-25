@@ -24,12 +24,13 @@ def TestImg(HD_Model, data_path, step_flag, device, batch_size = 8, num_epochs =
 
     with torch.no_grad():
         for bix, data in enumerate(test_dl):
-            face_1, face_2, mask, index = data
+            face_1, face_2, mask, albedo, index = data
             b,c,w,h = face_1.shape
         
             mask   = mask.to(device)
             face_1   = face_1.to(device)
             face_2   = face_2.to(device)
+            albedo   = albedo.to(device)
 
             mask = mask.to(device)
 
@@ -56,10 +57,10 @@ def TestImg(HD_Model, data_path, step_flag, device, batch_size = 8, num_epochs =
             file_name = './data/results/'
             print(index)
             Spnormal = Sphere_DPR(pN_1, pL_1)
-            s_immg1 = torch.cat([face_1*mask, rec_F_1*mask, rec_S_1*pA_1*mask, pA_1*mask, pS_1*mask, rec_S_1*mask, get_shading_DPR_B(Spnormal, pL_1, VisLight=True).expand([b, 3, w,h]), get_normal_in_range(normal_DPR2SFS(pN_1))*mask], dim=0)
+            s_immg1 = torch.cat([face_1*mask, rec_F_1*mask, rec_S_1*pA_1*mask, pA_1*mask, albedo*mask, pS_1*mask, rec_S_1*mask, get_shading_DPR_B(Spnormal, pL_1, VisLight=True).expand([b, 3, w,h]), get_normal_in_range(normal_DPR2SFS(pN_1))*mask], dim=0)
             save_image(s_immg1, file_name + '_img1.png', nrow=b, normalize=False)
 
-            s_immg2 = torch.cat([face_2*mask, rec_F_2*mask, rec_S_2*pA_2*mask, pA_2*mask, pS_2*mask, rec_S_2*mask, get_shading_DPR_B(Spnormal, pL_2, VisLight=True).expand([b, 3, w,h]), get_normal_in_range(normal_DPR2SFS(pN_2))*mask], dim=0)
+            s_immg2 = torch.cat([face_2*mask, rec_F_2*mask, rec_S_2*pA_2*mask, pA_2*mask, albedo*mask, pS_2*mask, rec_S_2*mask, get_shading_DPR_B(Spnormal, pL_2, VisLight=True).expand([b, 3, w,h]), get_normal_in_range(normal_DPR2SFS(pN_2))*mask], dim=0)
             save_image(s_immg2, file_name + '_img2.png', nrow=b, normalize=False)
             print()
 

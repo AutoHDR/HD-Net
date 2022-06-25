@@ -27,9 +27,9 @@ def generate_test_own(dir):
     face_list_2.sort()
     mask_list = glob.glob(dir+'/mask/*')
     mask_list.sort()
-    albedo_list = glob.glob(dir+'/mask/*')
+    albedo_list = glob.glob(dir+'/GT_Albedo/*')
     albedo_list.sort()
-    normal_list = glob.glob(dir+'/mask/*')
+    normal_list = glob.glob(dir+'/GT_Normal/*')
     normal_list.sort()
     assert (len(face_list_1) == len(face_list_2) == len(mask_list)== len(albedo_list)== len(normal_list))
     name_to_list = {'face_1': face_list_1,'face_2':face_list_2, 'mask':mask_list, 'albedo':albedo_list,'normal':normal_list}
@@ -378,6 +378,7 @@ def get_dataset_OT(read_from_csv=None, validation_split=0):
     face_1 = list(df['face_1'])
     face_2 = list(df['face_2'])
     mask = list(df['mask'])
+    albedo = list(df['albedo'])
 
     assert (len(face_1) == len(face_2) == len(mask))
     dataset_size = len(face_1)
@@ -390,7 +391,7 @@ def get_dataset_OT(read_from_csv=None, validation_split=0):
         transforms.ToTensor()
     ])
 
-    full_dataset = Dataset_OT( face_1, face_2, mask, transform)
+    full_dataset = Dataset_OT( face_1, face_2, mask, albedo, transform)
     # TODO: This will vary dataset run-to-run
     # Shall we just split manually to ensure run-to-run train-val dataset is same?
     train_dataset, val_dataset = random_split(full_dataset, [train_count, validation_count])
@@ -398,22 +399,23 @@ def get_dataset_OT(read_from_csv=None, validation_split=0):
 
 
 class Dataset_OT(Dataset):
-    def __init__(self, face_1, face_2, mask, transform=None):
+    def __init__(self, face_1, face_2, mask, albedo, transform=None):
 
         self.face_1 = face_1
         self.face_2 = face_2
         self.mask = mask
+        self.albedo = albedo
 
         self.transform = transform
         self.dataset_len = len(self.face_1)
-
 
     def __getitem__(self, index):
         face_1 = self.transform(Image.open(self.face_1[index]))
         face_2 = self.transform(Image.open(self.face_2[index]))
         mask = self.transform(Image.open(self.mask[index]))
+        albedo = self.transform(Image.open(self.albedo[index]))
 
-        return face_1, face_2, mask, self.face_1[index]
+        return face_1, face_2, mask, albedo, self.face_1[index]
 
     def __len__(self):
         return self.dataset_len
