@@ -85,12 +85,6 @@ def wandb_log_images_Single(img, mask, index, path, flag):
 import os, tarfile
 
 def make_targz(output_filename, source_dir):
-    """
-    一次性打包目录为tar.gz
-    :param output_filename: 压缩文件名
-    :param source_dir: 需要打包的目录
-    :return: bool
-    """
     try:
         with tarfile.open(output_filename, "w:gz") as tar:
             tar.add(source_dir, arcname=os.path.basename(source_dir))
@@ -104,8 +98,6 @@ def ImageBatchNormalization(input):
     [b,c,w,h] = input.size()
     tp_max = input.max(dim=1).values.max(dim=1).values.max(dim=1).values.unsqueeze(1).unsqueeze(1).unsqueeze(1).expand([b,c,w,h])
     tp_min = input.min(dim=1).values.min(dim=1).values.min(dim=1).values.unsqueeze(1).unsqueeze(1).unsqueeze(1).expand([b,c,w,h])
-    
     tp_data =  (input - tp_min) / (tp_max - tp_min + 0.00001)
-
     return tp_data
 
