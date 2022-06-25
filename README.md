@@ -1,7 +1,7 @@
 # HD-Net
 
 <center><img src="data/results/_img3.png " width="80%"></center>
-* From top to bottom are the input face, predicted albedo, predicted shading, visualized light and predicted normal.
+From top to bottom are the input face, predicted albedo, predicted shading, visualized light and predicted normal.
 
 ## Training
 Please see each subsection for training on different datasets. Available training datasets:
