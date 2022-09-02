@@ -1,4 +1,6 @@
 # HD-Net
+This repository contains the official implementation of "Face Inverse Rendering via Hierarchical Decoupling" [PDF](https://ieeexplore.ieee.org/document/9870667), which appeared in TIP 2022.
+
 
 <center><img src="data/results/_img3.png " width="80%"></center>
 From top to bottom are the input face, predicted albedo, predicted shading, visualized light and predicted normal.
